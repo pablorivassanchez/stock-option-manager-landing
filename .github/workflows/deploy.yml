@@ -1,0 +1,23 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main  # Adjust if your main branch has a different name
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          api-token: ${{ secrets.CLOUDFLARE_API_TOKEN }}  # Your Cloudflare API token
+          account-id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}  # Your Cloudflare account ID
+          project-name: 'stock-option-manager'  # Replace with your project name
+          directory: './'  # Path to your static files
+          branch: main
